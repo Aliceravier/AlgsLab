@@ -103,21 +103,39 @@ public class StringList {
     //    - replace
     //
 
-    public boolean equal(StringList l){return false;}
+    public Boolean equal(StringList list) {
+    	return this.toString() == list.toString();
+    }
     // IMPLEMENT THIS
     //
     // l1.equals(l2) delivers true if the two lists
     // contain the same elements in the same order
     //
     
-    public StringList reverse(){return new StringList();}
+    public StringList reverse(){
+    	StringList revList = new StringList();
+    	for (int i = 0; i < this.size; i++) {
+    		revList.addFront(this.get(i));
+    	}
+    	return revList;
+    }
     // IMPLEMENT THIS
     //
     // l.reverse() delivers a new StringList that has the 
     // the elements of l in reverse order
     //
     
-    public String get(int i){return "IMPLEMENT THIS";}
+    public String get(int i){
+    	if(i < 0 || i > this.size)
+    		return "";
+    	Node currentNode = this.getHead();
+    	for(int j = 0; j < i; j++) {
+    		currentNode = currentNode.getNext();
+    	}
+    	return currentNode.getElement();
+
+    	
+    }
     // IMPLEMENT THIS
     //
     // l.get(i) delivers a String s, the ith element of list l.
@@ -125,14 +143,22 @@ public class StringList {
     // Note: l.get(0) delivers the 1st element of the list (if there is one)
     //
 
-    public Node last(){return null;}
+    public Node last(){
+    	Node lastNode = this.getHead();
+    	for(int i = 1; i < this.size; i++) {
+    		lastNode = lastNode.getNext();    	
+    		}
+    	return lastNode;
+    	}
     // IMPLEMENT THIS
     //
     // l.last() delivers the last Node in the list l.
     // Note: this might be used when appending lists
     //
     
-    public void append(StringList l){}
+    public void append(StringList l){
+    	this.last().setNext(l.getHead());
+    }
     // IMPLEMENT THIS
     //
     // l1.append(l2) append list l2 to the end of list l1.
@@ -141,20 +167,46 @@ public class StringList {
     //       You should investigate the consequences of this
     //
 
-    public int count(String s){return -1;}
+    public int count(String s){
+    	int count = 0;
+    	Node currentNode = this.getHead();
+    	for(int i = 0; i < this.size; i++) {
+    		if(currentNode.getElement().equals(s))
+    			count++;
+    		currentNode = currentNode.getNext();
+    	}
+    	return count;
+
+    }
     // IMPLEMENT THIS
     //
     // l.count(s) returns the number of times s occurs in l
     //
 
-    public int indexOf(String s){return -999;}
+    public int indexOf(String s){
+    	Node currentNode = this.getHead();
+    	for(int i = 0; i < this.size; i++) {
+    		if(currentNode.getElement().equals(s))
+    			return i;
+    		currentNode = currentNode.getNext();
+    	}
+    	return -1;
+    	
+    }
     // IMPLEMENT THIS
     //
     // indexOf(s) returns -1 if s is not in the list, otherwise
     // the index of the first occurrence of s in the list
     //
 
-    public void replace(String s1,String s2){}
+    public void replace(String s1,String s2){
+    	Node currentNode = this.getHead();
+    	for(int i = 0; i < this.size; i++) {
+    		if(currentNode.getElement().equals(s1))
+    			currentNode.setElement(s2);
+    		currentNode = currentNode.getNext();
+    	}
+    }
     // IMPLEMENT ME
     //
     // replace all occurrences of s1 with s2
