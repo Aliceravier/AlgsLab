@@ -24,7 +24,7 @@ class Status {
     private int free_locs_;
     // The location that was evicted 
     private int evicted_cache_loc_;
-    // The address in main memory of the cache line that was evicted
+    // The cache line address in memory that was evicted
     private int evicted_cacheline_addr;
 
     // Getters

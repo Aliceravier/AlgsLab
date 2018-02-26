@@ -66,7 +66,7 @@ class TestBench {
         int score=0;
         for (int i=0; i<MEM_SZ;i++) {
 //            System.out.println("Writing "+i+" to "+i);
-            mem.write(i,reference[i]);
+            mem.write(i,reference[i]); //reference = data
 
 //            System.out.println("Assert: "+mem.status.hit());
 
@@ -111,9 +111,13 @@ class TestBench {
             boolean content_ok = true;
             if (mem.status.evicted()) {
                 int cla = mem.status.evictedCacheLineAddr();
-                for (int j = 0; j<CACHELINE_SZ;j++) {
+                for (int j = 0; j<CACHELINE_SZ; j++) {
                     int addr = CACHELINE_SZ * cla + j;
+                    System.out.println("cla: "+cla);
+                    System.out.println("addr: "+addr);
                     content_ok = content_ok  && (reference[addr] == mem.ram[addr]);
+                    System.out.println("reference data: "+reference[addr]);
+                    System.out.println("mem data: "+mem.ram[addr]);
                 }
             } else {
                 content_ok = mem.ram[i] == 0;
@@ -125,6 +129,10 @@ class TestBench {
             if (free) ++score;
             if (content_ok) ++score;
             if (!hit_miss || !evicted || !free || ! content_ok) {
+            	System.out.println("hit miss: "+hit_miss);
+            	System.out.println("evicted: "+evicted);
+            	System.out.println("free: "+free);
+            	System.out.println("content ok: "+content_ok);
                 System.out.println(mem.status.toString());
             }
             assert hit_miss;

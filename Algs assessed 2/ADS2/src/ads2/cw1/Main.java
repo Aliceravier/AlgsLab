@@ -14,11 +14,13 @@ public class Main {
         final int CACHELINE_SZ=16; // 16 words
         final int CACHE_SZ=8*CACHELINE_SZ; // 8 lines of 16 words
         
+        //FullyAssocLiFoCache cache = new  FullyAssocLiFoCache(CACHE_SZ, CACHELINE_SZ);
+        
         // Create a Memory instance
         Memory mem = new Memory(MEM_SZ,CACHE_SZ,CACHELINE_SZ);
         // Create a Testbench instance
         TestBench tb = new TestBench(mem);
         // Run the first 3 tests in the testbench
-        tb.run(3);
+        tb.run(1);
     }
 }
